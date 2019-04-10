@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class HorarioComponent implements OnInit {
 
   mensaje: boolean;
-  dias: string[] = ['HORA', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
 
   materias = [
     {
