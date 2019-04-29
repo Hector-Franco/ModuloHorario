@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MateriasService } from 'src/app/services/materias.service';
 
 @Component({
   selector: 'app-horario',
@@ -84,7 +85,6 @@ export class HorarioComponent implements OnInit {
     }
   ];
 
-
   btnMaterias = [
     {
       grupo: 'Eje Fundamental',
@@ -126,15 +126,21 @@ export class HorarioComponent implements OnInit {
 
   numero: number = this.btnMaterias.length;
 
-  constructor() {
-    this.mensaje = false;
+  constructor(private materiasService: MateriasService) {
+   //
+    this.generarHorario();
   }
 
   ngOnInit() {
   }
 
   generarHorario() {
-    this.mensaje = true;
+    this.materiasService.getMaterias().subscribe(
+      (data: any) => {
+        console.log(data);
+        this.materias = data;
+      }
+    );
   }
 
 

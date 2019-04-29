@@ -1,6 +1,6 @@
 <div class="horario">
 
-  <table class="table table-bordered">
+  <table *ngIf="materias" class="table table-bordered">
     <thead class="thead-dark">
       <tr>
         <th scope="col">HORA</th>
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-success" onclick="generarHorario()">Generar Horario</button>
+  <button type="button" class="btn btn-success" click="generarHorario()">Generar Horario</button>
 
   <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on left">
     Tooltip on left
