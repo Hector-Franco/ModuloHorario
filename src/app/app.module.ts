@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 // !Importar el Modulo HttpClientModule
 import { HttpClientModule} from '@angular/common/http';
 import { IngresoComponent } from './components/ingreso/ingreso.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { IngresoComponent } from './components/ingreso/ingreso.component';
     AppComponent,
     NavbarComponent,
     HorarioComponent,
-    IngresoComponent
+    IngresoComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
