@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 const routes: Routes = [
     { path: 'ingreso', component: IngresoComponent },
-    { path: 'horario/:id', component: HorarioComponent },
+    { path: 'horario', component: HorarioComponent },
     { path: '**',  component: PageNotFoundComponent } // ?Cualquier otra ruta no registrado
 ];
 

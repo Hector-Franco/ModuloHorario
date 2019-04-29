@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MateriasService } from 'src/app/services/materias.service';
+import { MateriasService } from 'src/app/services/materias/materias.service';
 
 @Component({
   selector: 'app-horario',
@@ -135,12 +135,6 @@ export class HorarioComponent implements OnInit {
   }
 
   generarHorario() {
-    this.materiasService.getMaterias().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.materias = data;
-      }
-    );
   }
 
 
