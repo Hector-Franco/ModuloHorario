@@ -10,16 +10,22 @@ import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 // !Importar el Modulo HttpClientModule
-import { HttpClientModule} from '@angular/common/http';
 import { IngresoComponent } from './components/ingreso/ingreso.component';
 
 // !Servicios
 import { AuthService } from './services/auth/auth.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { HttpClientModule } from '@angular/common/http';
+
 
 // !Environments
 import { environment } from '../environments/environment';
+import { MenuComponent } from './components/menu/menu.component';
+import { MateriasComponent } from './components/materias/materias.component';
+import { RegistroComponent } from './components/registro/registro.component';
+import { MateriaComponent } from './components/materia/materia.component';
 
 @NgModule({
   declarations: [
@@ -27,13 +33,18 @@ import { environment } from '../environments/environment';
     NavbarComponent,
     HorarioComponent,
     IngresoComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    MenuComponent,
+    MateriasComponent,
+    RegistroComponent,
+    MateriaComponent
   ],
   imports: [
     BrowserModule,
     APP_ROUTING,
     FormsModule,
-    HttpClientModule, // ?Cargar el Modulo en los import
+    HttpClientModule,
+    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig), // ?Cargar FirebaseConfig
   ],
   providers: [

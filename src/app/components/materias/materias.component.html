@@ -1,0 +1,38 @@
+<div class="card text-center">
+  <div class="card-header" >
+    Plataforma de Gestión Academica
+  </div>
+  <div class="card-body">
+    <b>Programa:</b> {{programa}} 
+    <b>Semestre:</b> {{semestre}}
+    <br>
+    <br>
+    <button type="button" class="btn btn-outline-danger" (click)="verMaterias()">VER</button>
+  </div>
+</div>
+
+<br>
+<!-- ? Materias -->
+
+<div class="card-deck" *ngIf="obtener">
+  <div class="col-sm-3" *ngFor="let materia of materias">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{materia.nombre}}</h5>
+        <p class="card-text">
+          Disponibilidad
+        </p>
+        <p class="card-text">
+          Lugar:
+        </p>
+        <p class="card-text">
+          Docente
+        </p>
+      </div>
+
+      <div class="card-footer">
+        <small class="text-muted">Créditos: {{materia.creditos}}</small>
+      </div>
+    </div>
+  </div>
+</div>

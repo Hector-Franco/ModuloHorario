@@ -8,9 +8,11 @@
 
     <!-- ? Ingresar -->
     <form (submit)="onSubmitLogin()">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail" [(ngModel)]="email">
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña" [(ngModel)]="password">
-      <input type="submit" class="fadeIn fourth" value="Ingresar">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail" [(ngModel)]="estudiante.eMail" required>
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña" [(ngModel)]="estudiante.password">
+      <input type="submit" class="fadeIn fourth" value="Ingresar" required>
+
+      <p *ngIf="valido" style="color: red">Autenticación fallida. Intentalo de nuevo</p>
     </form>
 
   </div>

@@ -1,0 +1,42 @@
+<div class="card text-center">
+  <div class="card-header">
+    Plataforma de Gestión Academica
+  </div>
+  <div class="card-body">
+    <b>Programa:</b> {{programa}}
+    <b>Semestre:</b> {{semestre}}
+    <br>
+    <br>
+    <form (submit)="verMateria()">
+      <input type="text" id="idMateria" class="fadeIn second" name="idMateria" placeholder="ID Materia"
+        [(ngModel)]="idMateria">
+      <button type="submit" class="btn btn-outline-danger">BUSCAR</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- ? Materias -->
+
+<div class="card-deck" *ngIf="obtener">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{materia[1]}}</h5>
+        <p class="card-text">
+          Disponibilidad
+        </p>
+        <p class="card-text">
+          Lugar:
+        </p>
+        <p class="card-text">
+          Docente
+        </p>
+      </div>
+
+      <div class="card-footer">
+        <small class="text-muted">Créditos: {{materia[0]}}</small>
+      </div>
+    </div>
+  </div>
+</div>

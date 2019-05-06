@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
+import { AngularFireDatabase } from '@angular/fire/database';
+import * as firebase from 'firebase/app';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Estudiante } from 'src/app/models/estudiante.interface';
+
 
 
 @Component({
@@ -11,12 +17,14 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   private isLogin: boolean;
-  private nombreEstudiante: string;
+  private nombreEstudiante = '';
   private emailEstudiante: string;
+  private idEstudiante: string;
 
-
-  constructor(private authService: AuthService,
-              private router: Router) { }
+   constructor(private authService: AuthService,
+    private router: Router,
+    private afd: AngularFireDatabase,
+    private http: HttpClient) { }
 
   // ?Inicializa cuando termina de renderizar el modulo  */
   ngOnInit() {
@@ -24,7 +32,12 @@ export class NavbarComponent implements OnInit {
       if (auth) {
         this.isLogin = true;
         this.nombreEstudiante = auth.displayName;
-        this.emailEstudiante = auth.email;
+
+        this.http.get(`https://modulo-horario.firebaseio.com/estudiantes/${auth.uid}.json`)
+          .subscribe((data: Estudiante) => console.log('Datos: ' + data.programa + '|' + data.semestre));
+
+
+
       } else {
         this.isLogin = false;
       }
@@ -34,8 +47,8 @@ export class NavbarComponent implements OnInit {
   // !Cerrar Sesión
   onSignOut() {
     this.authService.logOut()
-                    .then((respuesta) => this.router.navigate(['/ingreso']))
-                    .catch((error) => console.log(error));
+      .then((respuesta) => this.router.navigate(['/']))
+      .catch((error) => console.log(error));
   }
 
 }

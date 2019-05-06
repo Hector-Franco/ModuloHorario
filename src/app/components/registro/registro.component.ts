@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
 import { Estudiante } from 'src/app/models/estudiante.interface';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-ingreso',
-  templateUrl: './ingreso.component.html',
-  styleUrls: ['./ingreso.component.css']
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
-export class IngresoComponent implements OnInit {
-
-  private email: string;
-  private password: string;
-  private valido: boolean;
+export class RegistroComponent implements OnInit {
 
   private estudiante: Estudiante = {
     idEstudiante: '',
@@ -24,6 +20,7 @@ export class IngresoComponent implements OnInit {
     numCreditosCursados: 0
   };
 
+
   constructor(private authService: AuthService,
               private router: Router) { }
 
@@ -31,12 +28,12 @@ export class IngresoComponent implements OnInit {
   }
 
   // !Ingresar al Modulo
-  onSubmitLogin() {
-    this.authService.LoginEstudiante(this.estudiante)
-      .then(() => this.router.navigate(['/menu']))
+  onSubmitRegister() {
+    this.authService.registrarEstudiante(this.estudiante)
+      .then((respuesta) => this.router.navigate(['/menu']))
       .catch((error) => {
-        this.valido = true;
         console.log(error);
+        this.router.navigate(['']);
       });
   }
 
