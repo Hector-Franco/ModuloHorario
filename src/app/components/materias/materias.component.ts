@@ -9,13 +9,13 @@ import { Materia } from 'src/app/models/materia.interface';
 })
 export class MateriasComponent implements OnInit {
 
-  private programa: string;
-  private semestre: string;
+  programa: string;
+  semestre: string;
 
   materias: Materia [];
 
 
-  private obtener = false;
+   obtener = false;
 
   constructor(private materiasService: MateriasService) {
   }

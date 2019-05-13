@@ -16,10 +16,10 @@ import { Estudiante } from 'src/app/models/estudiante.interface';
 })
 export class NavbarComponent implements OnInit {
 
-  private isLogin: boolean;
-  private nombreEstudiante = '';
-  private emailEstudiante: string;
-  private idEstudiante: string;
+   isLogin: boolean;
+   nombreEstudiante = '';
+   emailEstudiante: string;
+   idEstudiante: string;
 
    constructor(private authService: AuthService,
     private router: Router,

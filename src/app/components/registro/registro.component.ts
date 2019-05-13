@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent implements OnInit {
 
-  private estudiante: Estudiante = {
+  estudiante: Estudiante = {
     idEstudiante: '',
     nombre: '',
     eMail: '',

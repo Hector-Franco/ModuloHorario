@@ -9,11 +9,11 @@ import { Materia } from 'src/app/models/materia.interface';
 })
 export class MateriaComponent implements OnInit {
 
-  private obtener = false;
-  private materia: Materia[];
-  private idMateria: string;
-  private programa: string;
-  private semestre: string;
+  obtener = false;
+  materia: Materia[];
+  idMateria: string;
+  programa: string;
+  semestre: string;
   constructor(private materiasService: MateriasService) { }
 
   ngOnInit() {

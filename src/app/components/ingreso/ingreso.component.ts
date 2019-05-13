@@ -10,11 +10,11 @@ import { Estudiante } from 'src/app/models/estudiante.interface';
 })
 export class IngresoComponent implements OnInit {
 
-  private email: string;
-  private password: string;
-  private valido: boolean;
+  email: string;
+  password: string;
+  valido: boolean;
 
-  private estudiante: Estudiante = {
+  estudiante: Estudiante = {
     idEstudiante: '',
     nombre: '',
     eMail: '',

@@ -14,8 +14,8 @@ export class MateriasService {
   private semestre: string;
 
   constructor(private afd: AngularFireDatabase,
-    private authService: AuthService,
-    private http: HttpClient) {
+              private authService: AuthService,
+              private http: HttpClient) {
 
     this.datosDelEstudiante();
 
@@ -37,6 +37,7 @@ export class MateriasService {
       }
     );
   }
+
   public getMaterias() {
     console.log(this.programa);
     console.log(this.semestre);

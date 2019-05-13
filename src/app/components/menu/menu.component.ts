@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  private fecha: any;
+  fecha: any;
 
   constructor(private materiasService: MateriasService,
               private authService: AuthService,
