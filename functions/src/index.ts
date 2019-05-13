@@ -15,15 +15,33 @@ export const getMaterias = functions.https.onRequest((request, response) => {
   const carrera = request.query.carrera;   // ?Query de la Carrera 
   const materiaID = request.query.materia; // ?Query de la Materia
   if (request.method === 'GET') {
-    if (!carrera && !materiaID){
+    if (!carrera && !materiaID) {
       const materias = admin.database().ref('/materias/');
       materias.on('value', (snapshot) => response.status(200).json(snapshot).send('Hecho'));
     } else if (!materiaID) {
       const materias = admin.database().ref(`/materias/${carrera}`);
-      materias.on('value', (snapshot) => response.status(200).json(snapshot).send('Hecho'));
+      materias.on('value', (snapshot) => {
+        // tslint:disable-next-line: no-unnecessary-type-assertion
+        const datos = snapshot!.exists()
+        if (datos) {
+          response.status(200).json(snapshot).send('Hecho');
+        } else {
+          response.status(404)
+            .send('Carrera inexistente, por favor rectifique sus datos\n\n' +
+              '1115: Arquitectura\n1413: Administración de Empresas\n1715: Psicología\n1720: Ingeniería de Sistemas');
+        }
+      });
     } else {
       const materias = admin.database().ref(`/materias/${carrera}/${materiaID}`);
-      materias.on('value', (snapshot) => response.status(200).json(snapshot).send('Hecho'));
+      materias.on('value', (snapshot) => {
+        // tslint:disable-next-line: no-unnecessary-type-assertion
+        const datos = snapshot!.exists()
+        if (datos) {
+          response.status(200).json(snapshot).send('Hecho');
+        } else {
+          response.status(404).send('Materia Inexistente. Rectifique el ID de la materia, por favor');
+        }
+      });
     }
   }
 });
