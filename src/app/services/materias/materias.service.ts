@@ -10,39 +10,30 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MateriasService {
 
-  private programa: string;
-  private semestre: string;
-
-  constructor(private afd: AngularFireDatabase,
-              private authService: AuthService,
-              private http: HttpClient) {
-
-    this.datosDelEstudiante();
-
+  constructor(private afd: AngularFireDatabase) {
   }
 
-  public datosDelEstudiante() {
-    this.authService.getAuth().subscribe(
-      auth => {
-        if (auth) {
-          this.http.get(`https://modulo-horario.firebaseio.com/estudiantes/${auth.uid}.json`)
-            .subscribe((estudiante: any) => {
-              this.programa = estudiante.programa;
-              this.semestre = estudiante.semestre;
-            });
+  /*   public datosDelEstudiante() {
+      this.authService.getAuth().subscribe(
+        auth => {
+          if (auth) {
+            this.http.get(`https://modulo-horario.firebaseio.com/estudiantes/${auth.uid}.json`)
+              .subscribe((estudiante: any) => {
+                this.programa = estudiante.programa;
+                this.semestre = estudiante.semestre;
+              });
 
-        } else {
+          } else {
 
+          }
         }
-      }
-    );
-  }
+      );
+    }
+   */
+  public getMaterias(programa: string) {
 
-  public getMaterias() {
-    console.log(this.programa);
-    console.log(this.semestre);
     return new Promise((resolve, reject) => {
-      this.afd.list(`/materias/${this.programa}/${this.semestre}`)
+      this.afd.list(`/materias/${programa}`)
         .valueChanges()
         .subscribe(
           materias => {
@@ -54,9 +45,10 @@ export class MateriasService {
     );
   }
 
-  public getMateria(idMateria: string) {
+  public getMateria(programa: string, idMateria: string) {
+
     return new Promise((resolve, reject) => {
-      this.afd.list(`/materias/${this.programa}/${this.semestre}/${idMateria}`)
+      this.afd.list(`/materias/${programa}/${idMateria}`)
         .valueChanges()
         .subscribe(
           materia => {
@@ -73,13 +65,6 @@ export class MateriasService {
 
   public getHorario(idHorario: string) { }
 
-  public getPrograma() {
-    return this.programa;
-  }
-
-  public getSemestre() {
-    return this.semestre;
-  }
 
 
 }

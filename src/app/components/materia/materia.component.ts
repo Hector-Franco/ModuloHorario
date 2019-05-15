@@ -18,22 +18,11 @@ export class MateriaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.programa = this.materiasService.getPrograma();
-    switch (this.programa) {
-      case '1115': this.programa += ' - Arquitectura'; break;
-      case '1413': this.programa += ' - Administración de Empresas'; break;
-      case '1715': this.programa += ' - Psicología'; break;
-      case '1720': this.programa += ' - Ingeniería de Sistemas'; break;
-
-      default:
-        break;
-    }
-    this.semestre = this.materiasService.getSemestre();
   }
 
   verMateria() {
     console.log(this.materia);
-    this.materiasService.getMateria(this.idMateria)
+    this.materiasService.getMateria(this.programa, this.idMateria)
       .then((materia: Materia[]) => {
         this.obtener = true;
         this.materia = materia;

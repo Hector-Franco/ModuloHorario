@@ -11,36 +11,59 @@ export class MateriasComponent implements OnInit {
 
   programa: string;
   semestre: string;
-
   materias: Materia [];
-
-
-   obtener = false;
+  materia: Materia [];
+  idMateria: string;
+  obtener: boolean;
+  fallo: boolean;
+  boton: boolean;
 
   constructor(private materiasService: MateriasService) {
   }
 
   ngOnInit() {
-    this.programa = this.materiasService.getPrograma();
-    switch (this.programa) {
-      case '1115': this.programa += ' - Arquitectura'; break;
-      case '1413': this.programa += ' - Administración de Empresas'; break;
-      case '1715': this.programa += ' - Psicología'; break;
-      case '1720': this.programa += ' - Ingeniería de Sistemas'; break;
-
-      default:
-        break;
-    }
-    this.semestre = this.materiasService.getSemestre();
   }
 
   verMaterias() {
-    this.materiasService.getMaterias()
-    .then( (materias: Materia[]) => {
-        this.obtener = true;
-        console.log(this.obtener);
-        this.materias = materias;
-        console.log(this.materias);
+    this.materiasService.getMaterias(this.programa)
+     .then( (materias: Materia[]) => {
+
+        if ( materias.length === 0 ) {
+          this.fallo = true;
+          this.obtener = false;
+          console.log('Ingrese una carrera valida por favor');
+        } else {
+          this.obtener = true;
+          this.fallo = false;
+          this.boton = true;
+          console.log(this.obtener);
+          this.materias = materias;
+          console.log(this.materias);
+        }
+
+      }
+    )
+    .catch(
+      error => console.log(error)
+    );
+  }
+
+  verMateria() {
+    this.materiasService.getMateria(this.programa, this.idMateria)
+     .then( (materia: Materia[]) => {
+
+        if ( materia.length === 0 ) {
+          this.fallo = true;
+          this.obtener = false;
+          console.log('Ingrese una materia valida por favor');
+        } else {
+          this.obtener = true;
+          this.fallo = false;
+          console.log(this.obtener);
+          this.materia = materia;
+          console.log(this.materias);
+        }
+
       }
     )
     .catch(

@@ -61,6 +61,21 @@ export const addMateriaID = functions.https.onRequest((request, response) => {
   }
 });
 
+// ?Agregar Materia por Carrera e ID
+export const updateMateriaID = functions.https.onRequest((request, response) => {
+
+  if (request.method === 'PUT') {
+    const carrera = request.query.carrera;
+    const materiaID = request.query.materiaID;
+    const materia = admin.database().ref(`/materias/${carrera}/${materiaID}`);
+    const addMateria = request.body;
+    materia.set(addMateria)
+      .then((data) => response.status(201).send(materiaID + 'Creada en: ' + carrera))
+      .catch((error) => response.status(500).send(error));
+
+  }
+});
+
 
 /*
 // ?Obtener Todos los Profesores

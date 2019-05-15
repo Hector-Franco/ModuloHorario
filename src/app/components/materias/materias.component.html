@@ -2,34 +2,39 @@
   <div class="card-header" >
     Plataforma de Gestión Academica
   </div>
-  <div class="card-body">
-    <b>Programa:</b> {{programa}} 
-    <b>Semestre:</b> {{semestre}}
-    <br>
-    <br>
-    <button type="button" class="btn btn-outline-danger" (click)="verMaterias()">VER</button>
+  <div class="card-body" >
+    <form>
+      <div class="form-group">
+        <label for="carrera">Carrera</label>
+        <input type="text" class="form-control" id="carrera" name="programa" placeholder="Ingrese la carrera" [(ngModel)]="programa">
+      </div>
+           
+      <button type="submit" class="btn btn-primary" (click)='verMaterias()' >Buscar</button>
+    </form>
   </div>
 </div>
 
 <br>
 <!-- ? Materias -->
 
+<div class="card-deck" *ngIf="fallo">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <p>Ingrese una carrera valida, por favor</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="card-deck" *ngIf="obtener">
   <div class="col-sm-3" *ngFor="let materia of materias">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{materia.nombre}}</h5>
-        <p class="card-text">
-          Disponibilidad
-        </p>
-        <p class="card-text">
-          Lugar:
-        </p>
-        <p class="card-text">
-          Docente
-        </p>
+        <h5 class="card-title">{{materia.ID}}</h5>
+        <button class="btn btn-primary">AGREGAR</button>
+        <p>{{materia.nombre}}</p>
       </div>
-
       <div class="card-footer">
         <small class="text-muted">Créditos: {{materia.creditos}}</small>
       </div>

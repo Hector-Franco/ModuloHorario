@@ -12,13 +12,13 @@ export class HorarioComponent implements OnInit {
   fecha = new Date().toString();
 
   constructor(private materiasService: MateriasService) {
-   this.getMaterias();
+
   }
 
   ngOnInit() {
   }
 
-  getMaterias() {
+/*   getMaterias() {
     this.materiasService.getMaterias();
-  }
+  } */
 }
