@@ -22,6 +22,10 @@
         "function": "addMateriaID"
       },
       {
+        "source": "/api/deleteMateria",
+        "function": "deleteMateriaID"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

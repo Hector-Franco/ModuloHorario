@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard] },
     { path: 'materias', component: MateriasComponent, canActivate: [AuthGuard] },
     { path: 'materia', component: MateriaComponent, canActivate: [AuthGuard] },
-    { path: 'registro', component: RegistroComponent },
+    { path: 'perfil', component: RegistroComponent },
     { path: '**',  component: PageNotFoundComponent } // ?Cualquier otra ruta no registrado
 ];
 

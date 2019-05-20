@@ -25,7 +25,6 @@ export class AuthGuard implements CanActivate {
                 .pipe(tap(auth => {
                   if (!auth) {
                     console.log('Estudiante no Loggeado. Devuelta a Login');
-                    this.router.navigate(['']);
                   }
                 }));
   }

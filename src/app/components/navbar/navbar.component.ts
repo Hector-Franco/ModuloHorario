@@ -16,28 +16,18 @@ import { Estudiante } from 'src/app/models/estudiante.interface';
 })
 export class NavbarComponent implements OnInit {
 
-   isLogin: boolean;
-   nombreEstudiante = '';
-   emailEstudiante: string;
-   idEstudiante: string;
+  isLogin: boolean;
+  email: string;
 
-   constructor(private authService: AuthService,
-    private router: Router,
-    private afd: AngularFireDatabase,
-    private http: HttpClient) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   // ?Inicializa cuando termina de renderizar el modulo  */
   ngOnInit() {
     this.authService.getAuth().subscribe(auth => {
       if (auth) {
         this.isLogin = true;
-        this.nombreEstudiante = auth.displayName;
-
-        this.http.get(`https://modulo-horario.firebaseio.com/estudiantes/${auth.uid}.json`)
-          .subscribe((data: Estudiante) => console.log('Datos: ' + data.programa + '|' + data.semestre));
-
-
-
+        this.email = auth.email;
       } else {
         this.isLogin = false;
       }
@@ -47,7 +37,7 @@ export class NavbarComponent implements OnInit {
   // !Cerrar Sesión
   onSignOut() {
     this.authService.logOut()
-      .then((respuesta) => this.router.navigate(['/']))
+      .then(() => this.router.navigate(['/']))
       .catch((error) => console.log(error));
   }
 

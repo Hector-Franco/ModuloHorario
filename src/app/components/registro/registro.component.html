@@ -3,29 +3,24 @@
 
     <!-- ? Icono -->
     <div class="fadeIn first">
-      <img src="./assets/img/LogoVertical.jpg" width="200px" height="200px" id="icon"
-        alt="Universidad Piloto de Colombia" />
+      <h1>Actualizar Perfil Docente</h1>
     </div>
 
     <!-- ? Ingresar -->
-    <form (submit)="onSubmitRegister()">
-      <input type="text" id="name" class="fadeIn second" name="idEstudiante" placeholder="ID Estudiante"
-        [(ngModel)]="estudiante.idEstudiante">
-      <input type="text" id="name" class="fadeIn second" name="name" placeholder="Nombre"
-        [(ngModel)]="estudiante.nombre">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail"
-        [(ngModel)]="estudiante.eMail">
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña"
-        [(ngModel)]="estudiante.password">
-      <input type="text" id="password" class="fadeIn third" name="programa" placeholder="programa"
-        [(ngModel)]="estudiante.programa">
-      <input type="text" id="password" class="fadeIn third" name="semestre" placeholder="Semestre"
-        [(ngModel)]="estudiante.semestre">
-      <input type="text" id="password" class="fadeIn third" name="creditos" placeholder="Créditos Cursados"
-        [(ngModel)]="estudiante.numCreditosCursados">
-      <input type="submit" class="fadeIn fourth" value="Registrar">
+    <form (submit)="actualizarPerfil()">
+      <input type="text" id="ID" class="fadeIn second" name="ID" placeholder="ID"
+        [(ngModel)]="ID" disabled>
+        
+      <input type="text" id="nombre" class="fadeIn second" name="nombre" placeholder="Nombre"
+        [(ngModel)]="nombre">
 
-      
+      <input type="text" id="apellido" class="fadeIn second" name="apellido" placeholder="Apellido"
+        [(ngModel)]="apellido">
+
+      <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail"
+        [(ngModel)]="email" disabled>
+
+      <input type="submit" class="fadeIn fourth" value="Actualizar">      
     </form>
 
   </div>

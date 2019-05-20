@@ -3,17 +3,22 @@
 
     <!-- ? Icono -->
     <div class="fadeIn first">
-      <img src="./assets/img/LogoVertical.jpg"  width="200px" height="200px" id="icon" alt="Universidad Piloto de Colombia" />
+      <img src="./assets/img/LogoVertical.jpg" width="200px" height="200px" id="icon"
+        alt="Universidad Piloto de Colombia" />
     </div>
 
     <!-- ? Ingresar -->
     <form (submit)="onSubmitLogin()">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail" [(ngModel)]="estudiante.eMail" required>
-      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña" [(ngModel)]="estudiante.password">
-      <input type="submit" class="fadeIn fourth" value="Ingresar" required>
-
-      <p *ngIf="valido" style="color: red">Autenticación fallida. Intentalo de nuevo</p>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="E-mail" [(ngModel)]="email"
+        required>
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="Contraseña"
+        [(ngModel)]="password">
+      <input type="submit" class="fadeIn fourth bg-dark" value="Ingresar" required>
     </form>
+
+    <div *ngIf="valido">
+      <p style="color: red">Autenticación fallida. Intentalo de nuevo</p>
+    </div>
 
   </div>
 </div>

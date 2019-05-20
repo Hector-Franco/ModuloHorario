@@ -14,16 +14,6 @@ export class IngresoComponent implements OnInit {
   password: string;
   valido: boolean;
 
-  estudiante: Estudiante = {
-    idEstudiante: '',
-    nombre: '',
-    eMail: '',
-    password: '',
-    programa: '',
-    semestre: '',
-    numCreditosCursados: 0
-  };
-
   constructor(private authService: AuthService,
               private router: Router) { }
 
@@ -32,10 +22,11 @@ export class IngresoComponent implements OnInit {
 
   // !Ingresar al Modulo
   onSubmitLogin() {
-    this.authService.LoginEstudiante(this.estudiante)
+    this.authService.LoginDocente(this.email, this.password)
       .then(() => this.router.navigate(['/menu']))
       .catch((error) => {
         this.valido = true;
+        console.log(this.valido);
         console.log(error);
       });
   }

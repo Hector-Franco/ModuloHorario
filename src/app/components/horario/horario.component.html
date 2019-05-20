@@ -1,1 +1,14 @@
-<p>Horario</p>
+<div class="jumbotron">
+    <h1 class="display-4">Bienvenid@, {{nombre}}</h1>
+    <p class="lead">En esta sección puede consultar o crear su horario para el proximo semestre.</p>
+    <hr class="my-4">
+
+    <ng-template [ngIf]="disponible" [ngIfElse]="noDisponible">
+        <p style="color:aqua"><b>{{mensajeDisponibilidad}}</b></p>
+     </ng-template>
+     
+     <ng-template #noDisponible>
+        <p style="color:red"><b>{{mensajeDisponibilidad}}</b></p>
+     </ng-template>
+</div>
+

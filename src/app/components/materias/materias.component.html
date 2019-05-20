@@ -1,20 +1,26 @@
 <div class="card text-center">
-  <div class="card-header" >
-    Plataforma de Gestión Academica
+  <div class="card-header">
+    Listado de Materias
   </div>
-  <div class="card-body" >
-    <form>
-      <div class="form-group">
-        <label for="carrera">Carrera</label>
-        <input type="text" class="form-control" id="carrera" name="programa" placeholder="Ingrese la carrera" [(ngModel)]="programa">
+  <div class="card-body">
+    <form (submit)="verMaterias()">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Carrera" name="programa" [(ngModel)]="programa">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="ID Materia" name="idMateria" [(ngModel)]="idMateria">
+        </div>
       </div>
-           
-      <button type="submit" class="btn btn-primary" (click)='verMaterias()' >Buscar</button>
+      <div class="col">
+        <button type="submit" class="btn btn-danger">Buscar</button>
+      </div>
     </form>
   </div>
 </div>
 
 <br>
+
 <!-- ? Materias -->
 
 <div class="card-deck" *ngIf="fallo">
@@ -28,11 +34,10 @@
 </div>
 
 <div class="card-deck" *ngIf="obtener">
-  <div class="col-sm-3" *ngFor="let materia of materias">
+  <div class="col-sm-3" *ngFor="let materia of materia">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{materia.ID}}</h5>
-        <button class="btn btn-primary">AGREGAR</button>
         <p>{{materia.nombre}}</p>
       </div>
       <div class="card-footer">
@@ -41,3 +46,19 @@
     </div>
   </div>
 </div>
+
+<div class="card-deck" *ngIf="obtenerM">
+    <div class="col-sm-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{materia[0]}}</h5>
+          <p class="card-text">
+            {{materia[2]}}
+          </p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Créditos: {{materia[1]}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
