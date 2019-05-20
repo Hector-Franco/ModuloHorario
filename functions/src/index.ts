@@ -87,3 +87,16 @@ export const getProfesores = functions.https.onRequest((request, response) => {
 export const getHorario = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
 }); */
+
+export const registrarProfesor = functions.auth.user().onCreate((user) => {
+  admin.database().ref(`/profesores/${user.uid}`)
+    .set({
+      email: user.email,
+      nombre: '',
+      apellido: '',
+      disponible: true,
+      ID: user.uid
+    })
+    .then(() => console.log('Profesor: ' + user.uid + ' creado'))
+    .catch((err) => console.log('Error: ' + err));
+});
