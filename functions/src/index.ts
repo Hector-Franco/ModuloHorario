@@ -100,3 +100,11 @@ export const registrarProfesor = functions.auth.user().onCreate((user) => {
     .then(() => console.log('Profesor: ' + user.uid + ' creado'))
     .catch((err) => console.log('Error: ' + err));
 });
+
+export const borrarProfesor = functions.auth.user().onDelete((user) => {
+  admin.database().ref(`/profesores/${user.uid}`)
+    .remove()
+    .then(() => console.log('Profesor: ' + user.uid + ' borrado'))
+    .catch((err) => console.log('Error: ' + err));
+});
+
