@@ -119,7 +119,10 @@ export const getHorario = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
 }); */
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> be9ee0821ee62167338bd6ae3e9af2dfaa941369
 export const registrarProfesor = functions.auth.user().onCreate((user) => {
   admin.database().ref(`/profesores/${user.uid}`)
     .set({
