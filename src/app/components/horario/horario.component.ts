@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import { Docente } from 'src/app/models/docente.interface';
 import { ProfesoresService } from 'src/app/services/profesores/profesores.service';
 import { Materia } from 'src/app/models/materia.interface';
+import { Horario } from 'src/app/models/horario.interface';
 
 @Component({
   selector: 'app-horario',
@@ -29,11 +30,14 @@ export class HorarioComponent implements OnInit {
 
   creditos: number;
 
-  horario: any[];
+  dias: Dia[] = [];
+  horario: any[] = [];
 
   codigoMateria: string;
-  dias = ['Lunes', 'Martes'];
-  horas = ['8:00', '12:00'];
+
+  diaNumero = 1;
+  diaHecho: boolean;
+  diaPosible = true;
 
   constructor(private materiasService: MateriasService,
               private authService: AuthService,
@@ -82,27 +86,13 @@ export class HorarioComponent implements OnInit {
       .catch((error) => console.log(error));
   }
 
-  verMateriaID(materiaID: string) {
-    this.materiasService.getMateriasPrograma(materiaID)
-      .then((materia: any[]) => {
-        if (materia.length !== 0) {
-          this.getMateria = true;
-          this.materia = materia;
-          this.agregar = false;
-          this.creditos = materia[1];
-          this.codigoMateria = materia[0];
-        } else {
-          this.error = true;
-          this.getMateria = false;
-          this.agregar = false;
-        }
-      })
-      .catch((error) => console.log(error));
-  }
-
   agregarMateria() {
     this.agregar = true;
-    this.generarHorario(this.dias, this.horas);
+    this.dias = [];
+    this.horario = [];
+    this.diaNumero = 1;
+    this.diaHecho = false;
+    this.diaPosible = true;
   }
 
   crearHorario() {
@@ -115,28 +105,36 @@ export class HorarioComponent implements OnInit {
   }
 
 
-  generarHorario(diasS: string[], horas: string[]) {
+  agregarDia(diaS: string, horaS: string) {
 
-    const horarios = [];
-    const dias = [];
+    const dia: Dia = {
+      dia: diaS,
+      hora: horaS
+    };
 
-    for (let i = 0; i < diasS.length; i++) {
-      const materia = {
-        dia: diasS[i],
-        hora: horas[i]
-      };
-      dias.push(materia);
+    console.log(dia);
+    console.log(this.dias);
+    this.dias.push(dia);
+    this.diaNumero ++;
+    this.diaHecho = true;
+
+    if (this.diaNumero > 5) {
+      this.diaPosible = false;
     }
-
-    console.log(dias);
-    console.log(horarios);
-
-    firebase.database().ref('/profesores/' + this.profesor.uid + '/horarios/' + this.codigoMateria)
-      .set({
-        dias
-      })
-      .then(() => console.log('Horario Creado'))
-      .catch((error) => console.log(error));
   }
 
+  aceptarHorario() {
+    this.horario.push(this.dias);
+    console.log(this.horario);
+  }
+
+}
+
+export interface Dia {
+  dia: string;
+  hora: string;
+}
+
+export interface Horario {
+  dia: Dia[];
 }

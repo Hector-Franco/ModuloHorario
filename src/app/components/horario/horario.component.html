@@ -34,49 +34,26 @@
    <div class="card-body">
       <h5 class="card-title">Agregar Materia</h5>
       <p>Agrega las materias por Carrera y Materia o solo por Materia</p>
-      <div class="form-check">
-         <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="ambos = !ambos">
-         <label class="form-check-label" for="exampleCheck1">Buscar por Carrera e ID</label>
+      <form>
+         <div class="row">
+            <div class="col">
+               <input type="text" class="form-control" placeholder="Carrera" #carrera required>
+            </div>
+            <div class="col">
+               <input type="text" class="form-control" placeholder="Materia" #materia required>
+            </div>
+         </div>
+         <button class="btn btn-primary" (click)="verMateriaCarreraID(carrera.value, materia.value)">Buscar</button>
+      </form>
+      <div *ngIf="!getMateria && error">
+         <p style="color:red">Verifica los datos, ingresa una Carrera o Materia valida</p>
       </div>
-
-      <ng-template [ngIf]="!ambos" [ngIfElse]="carrera">
-         <form>
-            <div class="row">
-               <div class="col">
-                  <input type="text" class="form-control" placeholder="Materia" #materia required>
-               </div>
-            </div>
-            <button class="btn btn-primary" (click)="verMateriaID(materia.value)">Buscar</button>
-         </form>
-         <div *ngIf="!getMateria && error">
-            <p style="color:red">Verifica los datos, ingresa una Materia valida</p>
-         </div>
-      </ng-template>
-
-      <ng-template #carrera>
-
-         <form>
-            <div class="row">
-               <div class="col">
-                  <input type="text" class="form-control" placeholder="Carrera" #carrera required>
-               </div>
-               <div class="col">
-                  <input type="text" class="form-control" placeholder="Materia" #materia required>
-               </div>
-            </div>
-            <button class="btn btn-primary" (click)="verMateriaCarreraID(carrera.value, materia.value)">Buscar</button>
-         </form>
-         <div *ngIf="!getMateria && error">
-            <p style="color:red">Verifica los datos, ingresa una Carrera o Materia valida</p>
-         </div>
-
-      </ng-template>
    </div>
 </div>
 <br>
 
 
-<div class="card" *ngIf="getMateria">
+<div class="card" *ngIf="getMateria && !agregar">
    <div class="card-header">
       {{materia[0]}}
    </div>
@@ -89,335 +66,49 @@
    </div>
 </div>
 <br>
+
 <div class="jumbotron" *ngIf="getMateria && agregar">
    <h2>{{materia[0]}}</h2>
    <h4>{{materia[2]}}</h4>
 
-   <form>
-      <div *ngIf="creditos == 2">
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 1</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
+   <form *ngIf="diaPosible">
+      <div class="form-group">
+         <label for="dia">Día {{diaNumero}}</label>
+         <select class="form-control" id="dia" #dia>
+            <option>Lunes</option>
+            <option>Martes</option>
+            <option>Miercoles</option>
+            <option>Jueves</option>
+            <option>Viernes</option>
+            <option>Sabado</option>
+         </select>
       </div>
-      <button class="btn btn-primary" (click)="verMateriaCarreraID(carrera.value, materia.value)">HECHO</button>
+      <div class="form-group">
+         <label for="hora">Hora</label>
+         <select class="form-control" id="hora" #hora>
+            <option>06:00</option>
+            <option>08:00</option>
+            <option>10:00</option>
+            <option>12:00</option>
+            <option>14:00</option>
+            <option>16:00</option>
+            <option>18:00</option>
+            <option>20:00</option>
+         </select>
+      </div>
+      <button class="btn btn-primary" (click)="agregarDia(dia.value, hora.value)">Agregar Día</button>
    </form>
 
-   <form>
-      <div *ngIf="creditos == 3">
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 1</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
+   <div class="alert alert-success" role="alert" *ngIf="diaHecho">
+      <p>Día {{diaNumero - 1}} Agregado a la materia {{codigoMateria}}</p>
+      <p>Día: {{dias[diaNumero - 2].dia}}</p>  
+      <p>Hora: {{dias[diaNumero - 2].hora}}</p>  
+   </div>
 
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 2</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-      </div>
-   </form>
+   <div class="alert alert-danger" role="alert" *ngIf="!diaPosible">
+      No puedes agregar más días a la materia {{codigoMateria}}
+   </div>
 
-   <form>
-      <div *ngIf="creditos == 4">
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 1</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 2</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 3</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-      </div>
-   </form>
-
-   <form>
-      <div *ngIf="creditos >= 5">
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 1</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 2</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 3</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-
-         <div class="row">
-            <div class="col">
-               <div class="form-group">
-                  <label for="dia">Día 4</label>
-                  <select class="form-control" id="dia">
-                     <option>Lunes</option>
-                     <option>Martes</option>
-                     <option>Miercoles</option>
-                     <option>Jueves</option>
-                     <option>Viernes</option>
-                     <option>Sabado</option>
-                  </select>
-               </div>
-            </div>
-            <div class="col">
-               <div class="form-group">
-                  <label for="hora">Hora</label>
-                  <select class="form-control" id="hora">
-                     <option>6:00</option>
-                     <option>8:00</option>
-                     <option>10:00</option>
-                     <option>12:00</option>
-                     <option>14:00</option>
-                     <option>16:00</option>
-                     <option>18:00</option>
-                     <option>20:00</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-      </div>
-   </form>
+   <button class="btn btn-success" *ngIf="diaNumero > 1" (click)="aceptarHorario()">Aceptar Horario</button>
 
 </div>

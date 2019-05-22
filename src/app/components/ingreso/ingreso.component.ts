@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-import { Estudiante } from 'src/app/models/estudiante.interface';
 
 @Component({
   selector: 'app-ingreso',
