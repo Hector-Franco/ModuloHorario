@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/materias']);
   }
 
-  verMateria() {
+  agregarMateria() {
     this.router.navigate(['/materia']);
   }
 }

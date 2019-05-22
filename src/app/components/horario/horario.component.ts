@@ -36,9 +36,9 @@ export class HorarioComponent implements OnInit {
   horas = ['8:00', '12:00'];
 
   constructor(private materiasService: MateriasService,
-    private authService: AuthService,
-    private profeService: ProfesoresService,
-    private afd: AngularFireDatabase) {
+              private authService: AuthService,
+              private profeService: ProfesoresService,
+              private afd: AngularFireDatabase) {
 
     this.nombre = this.profesor.displayName;
   }

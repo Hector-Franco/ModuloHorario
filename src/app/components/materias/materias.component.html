@@ -1,40 +1,53 @@
-<div class="card text-center">
+<div class="card">
   <div class="card-header">
     Listado de Materias
   </div>
   <div class="card-body">
-    <form (submit)="verMaterias()">
-      <div class="form-row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Carrera" name="programa" [(ngModel)]="programa">
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="check = !check">
+      <label class="form-check-label" for="exampleCheck1">Buscar por Carrera e ID</label>
+    </div>
+
+    <ng-template [ngIf]="!check" [ngIfElse]="carreraMateria">
+      <form>
+        <div class="row">
+          <div class="col">
+            <label for="carrera">Ingrese la Carrera o Área</label>
+            <input id="carrera" name="programa" [(ngModel)]="programa" type="text" class="form-control" placeholder="Carrera/Área" #carrera required>
+          </div>
         </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="ID Materia" name="idMateria" [(ngModel)]="idMateria">
+        <button class="btn btn-primary" (click)="verMateria(carrera.value, undefined)">Buscar</button>
+      </form>
+      <div *ngIf="fallo">
+        <p style="color:red">Verifica los datos, ingresa una Materia valida</p>
+      </div>
+    </ng-template>
+
+    <ng-template #carreraMateria>
+      <form>
+        <div class="row">
+          <div class="col">
+            <input type="text" name="programa" [(ngModel)]="programa" class="form-control" placeholder="Carrera/Área" #carrera required>
+          </div>
+          <div class="col">
+            <input type="text" name="materiaID" [(ngModel)]="materiaID" class="form-control upper" placeholder="Materia" #materia required>
+          </div>
         </div>
+        <button class="btn btn-primary" (click)="verMateria(carrera.value, materia.value)">Buscar</button>
+      </form>
+      <div *ngIf="fallo">
+        <p style="color:red">Verifica los datos, ingresa una Carrera o Materia valida</p>
       </div>
-      <div class="col">
-        <button type="submit" class="btn btn-danger">Buscar</button>
-      </div>
-    </form>
+    </ng-template>
+
   </div>
 </div>
 
 <br>
 
-<!-- ? Materias -->
-
-<div class="card-deck" *ngIf="fallo">
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-body">
-        <p>Ingrese una carrera valida, por favor</p>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="card-deck" *ngIf="obtener">
-  <div class="col-sm-3" *ngFor="let materia of materia">
+  <div class="col-sm-3" *ngFor="let materia of materias">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{materia.ID}}</h5>
@@ -47,18 +60,18 @@
   </div>
 </div>
 
-<div class="card-deck" *ngIf="obtenerM">
-    <div class="col-sm-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{materia[0]}}</h5>
-          <p class="card-text">
-            {{materia[2]}}
-          </p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Créditos: {{materia[1]}}</small>
-        </div>
+<div class="card-deck" *ngIf="obtenerMaterias">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{materia[0]}}</h5>
+        <p class="card-text">
+          {{materia[2]}}
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Créditos: {{materia[1]}}</small>
       </div>
     </div>
   </div>
+</div>

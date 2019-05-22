@@ -16,7 +16,9 @@ export const getMaterias = functions.https.onRequest((request, response) => {
     if (!carrera && !materiaID) {
       const materias = admin.database().ref('/materias/');
       materias.on('value', (snapshot) => response.status(200).json(snapshot).send('Hecho'));
-    } else if (!materiaID) {
+    } 
+    
+    else if (!materiaID) {
       const materias = admin.database().ref(`/materias/${carrera}`);
       materias.on('value', (snapshot) => {
         // tslint:disable-next-line: no-unnecessary-type-assertion
@@ -25,22 +27,8 @@ export const getMaterias = functions.https.onRequest((request, response) => {
           response.status(200).json(snapshot).send('Hecho');
         } else {
           response.status(404)
-            .send('Carrera inexistente, por favor rectifique sus datos\n\n' +
-              '1115: Arquitectura\n1413: Administración de Empresas\n1715: Psicología\n1720: Ingeniería de Sistemas');
-        }
-      });
-    }
-
-    else if (!carrera) {
-      const materias = admin.database().ref(`/materias/${materiaID}`);
-      materias.on('value', (snapshot) => {
-        // tslint:disable-next-line: no-unnecessary-type-assertion
-        const datos = snapshot!.exists()
-        if (datos) {
-          response.status(200).json(snapshot).send('Hecho');
-        } else {
-          response.status(404)
-            .send('Materia Inexistente. Rectifique el ID de la materia, por favor');
+            .send('Área inexistente, por favor rectifique sus datos\n\n' +
+              '1115: Arquitectura\n1413: Administración de Empresas\n1715: Psicología\n1720: Ingeniería de Sistemas\n1010: Áreas Comunes');
         }
       });
     }
@@ -56,7 +44,7 @@ export const getMaterias = functions.https.onRequest((request, response) => {
           response.status(404).send('Materia Inexistente. Rectifique el ID de la materia, por favor');
         }
       });
-    }
+    } 
   }
 });
 
@@ -92,16 +80,13 @@ export const deleteMateriaID = functions.https.onRequest((request, response) => 
     const carrera = request.query.carrera;
     const materiaID = request.query.materiaID;
 
-    if (!carrera) {
-      admin.database().ref(`/materias/${materiaID}`)
-        .remove()
-        .then((data) => response.status(200).send(`Materia: ${materiaID} Eliminada`))
-        .catch((error) => response.status(500).send(error));
+    if (!materiaID) {
+      response.status(500).send('Debe ingresar un ID de alguna materia a eliminar, por favor');
 
     } else {
       admin.database().ref(`/materias/${carrera}/${materiaID}`)
         .remove()
-        .then((data) => response.status(200).send(`${carrera}/${materiaID} Eliminada`))
+        .then((data) => response.status(200).send(`${materiaID} Eliminada`))
         .catch((error) => response.status(500).send(error));
     }
   }

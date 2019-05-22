@@ -9,14 +9,13 @@ import { Materia } from 'src/app/models/materia.interface';
 })
 export class MateriasComponent implements OnInit {
 
-  materias: Materia[];
+
   materia: Materia[];
-  mat: any[];
-  programa: string;
-  idMateria: string;
-  obtener: boolean;
-  obtenerM: boolean;
+  materias: Materia[];
+  check = false;
   fallo: boolean;
+  obtenerMaterias: boolean;
+  obtener: boolean;
 
   constructor(private materiasService: MateriasService) {
   }
@@ -24,63 +23,49 @@ export class MateriasComponent implements OnInit {
   ngOnInit() {
   }
 
-  verMaterias() {
-    if (this.programa != null && this.idMateria != null) {
-      this.verMateriaCarreraId(this.programa, this.idMateria);
-
-    } else if ((this.idMateria === '' || this.idMateria == null) && (this.programa != null)) {
-      this.verMateriasCarrera(this.programa);
-
-    } else if ((this.programa == null || this.programa === '') && (this.idMateria == null || this.idMateria === '')) {
-      this.todasMaterias();
+  verMateria(carrera: string, materia: string) {
+    console.log(carrera);
+    console.log(materia);
+    if (materia === undefined) {
+      console.log('Entró a IF');
+      this.verCarrera(carrera);
+    } else {
+      console.log('Entro a ELSE');
+      this.verMateriaCarreraID(carrera, materia);
     }
   }
 
+  verCarrera(carrera: string) {
+    this.materiasService.getMateriasPrograma(carrera)
+    .then((materia: Materia[]) => {
+      if (materia.length === 0) {
+        this.fallo = true;
+        this.obtener = false;
+        console.log('Ingrese una Carrera valida por favor');
+      } else {
+        this.obtenerMaterias = false;
+        this.obtener = true;
+        this.fallo = false;
+        this.materias = materia;
+      }
+    })
+    .catch(error => console.log(error));
+  }
 
-  verMateriaCarreraId(programa: string, idMateria: string) {
-    this.materiasService.getMateria(programa, idMateria)
+  verMateriaCarreraID(carrera: string, materiaID: string) {
+    this.materiasService.getMateria(carrera, materiaID)
       .then((materia: Materia[]) => {
         if (materia.length === 0) {
           this.fallo = true;
-          this.obtenerM = false;
+          this.obtenerMaterias = false;
           console.log('Ingrese una materia valida por favor');
         } else {
           this.obtener = false;
-          this.obtenerM = true;
+          this.obtenerMaterias = true;
           this.fallo = false;
           this.materia = materia;
         }
       })
       .catch(error => console.log(error));
   }
-
-  verMateriasCarrera(programa: string) {
-    this.materiasService.getMateriasPrograma(programa)
-      .then((materias: Materia[]) => {
-        if (materias.length === 0) {
-          this.fallo = true;
-          this.obtener = false;
-          console.log('Ingrese una carrera valida por favor');
-        } else {
-          this.obtener = true;
-          this.fallo = false;
-          this.materia = materias;
-        }
-
-      }
-      )
-      .catch(error => console.log(error));
-  }
-
-  todasMaterias() {
-    this.materiasService.getMaterias()
-      .then((materias: any[]) => {
-        this.obtener = true;
-        this.materia = materias.slice(4);
-      })
-      .catch((error) => console.log(error));
-  }
-
-
-
 }

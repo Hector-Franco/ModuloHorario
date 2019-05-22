@@ -12,7 +12,6 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private afd: AngularFireDatabase) {
-
   }
 
   // !Salir del Modulo

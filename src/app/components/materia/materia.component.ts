@@ -9,29 +9,36 @@ import { Materia } from 'src/app/models/materia.interface';
 })
 export class MateriaComponent implements OnInit {
 
-  obtener = false;
-  materia: Materia[];
-  idMateria: string;
-  programa: string;
-  semestre: string;
+  exito: boolean;
+  error: boolean;
+
   constructor(private materiasService: MateriasService) { }
 
   ngOnInit() {
 
   }
 
-  verMateria() {
-    console.log(this.materia);
-    this.materiasService.getMateria(this.programa, this.idMateria)
-      .then((materia: Materia[]) => {
-        this.obtener = true;
-        this.materia = materia;
-        console.log(this.materia);
-      }
-      )
-      .catch(
-        error => console.log(error)
-      );
+  crearMateria(programa: string,
+               idMateria: string,
+               nombreMateria: string,
+               creditosMateria: string) {
+
+    const materia: Materia = {
+      ID: idMateria.toUpperCase(),
+      nombre: nombreMateria,
+      creditos: parseInt(creditosMateria, 10)
+    };
+    this.materiasService.crearMateria(programa, materia)
+    .then((mat) => {
+      console.log('Materia creada con éxito: ' + mat);
+      this.exito = true;
+      this.error = false;
+    })
+    .catch((error) => {
+      console.log('Materia no creada: ' + error);
+      this.error = true;
+      this.exito = false;
+    });
   }
 
 }
