@@ -18,15 +18,37 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
+
     <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item" *ngIf="isLogin">
+        <p class="nav-link">
+          <a [routerLink]="['/horario']" class="perfil">Ver Horario</a>
+        </p>
+      </li>
+
+      <li class="nav-item" *ngIf="isLogin">
+        <p class="nav-link">
+          <a [routerLink]="['/materias']" class="perfil">Ver Materias</a>
+        </p>
+      </li>
+
+      <li class="nav-item" *ngIf="isLogin">
+        <p class="nav-link">
+          <a [routerLink]="['/materia']" class="perfil">Agregar Materias</a>
+        </p>
+      </li>
+
       <li class="nav-item active" *ngIf="isLogin">
         <p class="nav-link">
           <a [routerLink]="['/perfil']" class="perfil"><b>{{nombre}}</b></a>
         </p>
       </li>
+
       <li class="nav-item active" *ngIf="isLogin">
         <a class="nav-link" (click)="onSignOut()">Salir</a>
       </li>
+
     </ul>
   </div>
 </nav>

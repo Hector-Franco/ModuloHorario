@@ -6,10 +6,11 @@
    <ng-template [ngIf]="disponible" [ngIfElse]="noDisponible">
       <div class="card">
          <div class="card-body">
-            <p><b>{{mensajeDisponibilidad}}</b></p>
-            <p class="lead">
-               <button class="btn btn-primary btn-lg" (click)='crearHorario()'>Crear Horario</button>
-            </p>
+            <div class="alert alert-primary" role="alert">
+               <p><b>{{mensajeDisponibilidad}}</b></p>
+            </div>
+
+            <button class="btn btn-primary btn-lg" (click)='crearHorario()'>Crear Horario</button>
          </div>
       </div>
    </ng-template>
@@ -17,10 +18,10 @@
    <ng-template #noDisponible>
       <div class="card">
          <div class="card-body">
-            <p><b>{{mensajeDisponibilidad}}</b></p>
-            <p class="lead">
-               <button class="btn btn-primary btn-lg" (click)='verHorario()'>Ver Horario</button>
-            </p>
+            <div class="alert alert-success" role="alert">
+               <p><b>{{mensajeDisponibilidad}}</b></p>
+            </div>
+            <button class="btn btn-primary btn-lg" (click)='verHorario()'>Ver Horario</button>
          </div>
       </div>
    </ng-template>
@@ -33,24 +34,24 @@
    </div>
    <div class="card-body">
       <h5 class="card-title">Agregar Materia</h5>
-      <p>Agrega las materias por Carrera y Materia o solo por Materia</p>
+      <p>Agrega las materias por Carrera y Materia</p>
       <form>
          <div class="row">
             <div class="col">
-               <input type="text" class="form-control" placeholder="Carrera" #carrera required>
+               <input type="text" class="form-control" placeholder="Carrera" #carrera required maxlength="4">
             </div>
             <div class="col">
-               <input type="text" class="form-control" placeholder="Materia" #materia required>
+               <input type="text" class="form-control texto" placeholder="Materia" #materia required maxlength="7">
             </div>
          </div>
          <button class="btn btn-primary" (click)="verMateriaCarreraID(carrera.value, materia.value)">Buscar</button>
       </form>
-      <div *ngIf="!getMateria && error">
-         <p style="color:red">Verifica los datos, ingresa una Carrera o Materia valida</p>
-      </div>
    </div>
 </div>
 <br>
+<div div class="alert alert-danger" role="alert" *ngIf="!getMateria && error">
+   <p>Verifica los datos, ingresa una Carrera o Materia valida</p>
+</div>
 
 
 <div class="card" *ngIf="getMateria && !agregar">
@@ -101,14 +102,30 @@
 
    <div class="alert alert-success" role="alert" *ngIf="diaHecho">
       <p>Día {{diaNumero - 1}} Agregado a la materia {{codigoMateria}}</p>
-      <p>Día: {{dias[diaNumero - 2].dia}}</p>  
-      <p>Hora: {{dias[diaNumero - 2].hora}}</p>  
+      <p>Día: {{dias[diaNumero - 2].dia}}</p>
+      <p>Hora: {{dias[diaNumero - 2].hora}}</p>
    </div>
 
    <div class="alert alert-danger" role="alert" *ngIf="!diaPosible">
       No puedes agregar más días a la materia {{codigoMateria}}
    </div>
 
-   <button class="btn btn-success" *ngIf="diaNumero > 1" (click)="aceptarHorario()">Aceptar Horario</button>
+   <button class="btn btn-success" *ngIf="diaNumero > 1" (click)="aceptarMateria()">Aceptar Materia</button>
 
+</div>
+
+<div class="alert alert-success" role="alert" *ngIf="(materiasInscritas > 0) && !getMateria && !agregar">
+   <p>Materia <b>{{codigoMateria}} - {{materiaNombre}}</b> inscrita</p>
+   <p>Materias Inscritas: {{materiasInscritas}}</p>
+</div>
+
+<div>
+   <button class="btn btn-success" *ngIf="(materiasInscritas > 0)" (click)="aceptarHorario()">Aceptar Horario</button> 
+</div>
+
+
+<!-- ?Ver horario -->
+
+<div class="jumbotron">
+   <h2>{{horario}}</h2>
 </div>

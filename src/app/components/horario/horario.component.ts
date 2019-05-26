@@ -27,17 +27,19 @@ export class HorarioComponent implements OnInit {
   error: boolean;
   agregar: boolean;
   materia: Materia[];
-
-  creditos: number;
+  materiaNombre: string;
 
   dias: Dia[] = [];
   horario: any[] = [];
+
 
   codigoMateria: string;
 
   diaNumero = 1;
   diaHecho: boolean;
   diaPosible = true;
+
+  materiasInscritas = 0;
 
   constructor(private materiasService: MateriasService,
               private authService: AuthService,
@@ -68,15 +70,18 @@ export class HorarioComponent implements OnInit {
   }
 
   verMateriaCarreraID(carrera: string, materiaID: string) {
-    this.materiasService.getMateria(carrera, materiaID)
+    if (carrera === '' || materiaID === '') {
+      this.error = true;
+      this.getMateria = false;
+    } else {
+      this.materiasService.getMateria(carrera, materiaID.toUpperCase())
       .then((materia: any[]) => {
         if (materia.length !== 0) {
           this.getMateria = true;
           this.materia = materia;
           this.agregar = false;
-          this.creditos = materia[1];
           this.codigoMateria = materia[0];
-          console.log(this.creditos);
+          this.materiaNombre = materia[2];
         } else {
           this.error = true;
           this.getMateria = false;
@@ -84,6 +89,8 @@ export class HorarioComponent implements OnInit {
         }
       })
       .catch((error) => console.log(error));
+    }
+
   }
 
   agregarMateria() {
@@ -102,6 +109,15 @@ export class HorarioComponent implements OnInit {
   verHorario() {
     this.cHorario = false;
     this.vHorario = true;
+
+    this.profeService.getHorario(this.profesor.uid)
+    .then((horarios: any[]) => {
+      console.log();
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
 
@@ -123,9 +139,28 @@ export class HorarioComponent implements OnInit {
     }
   }
 
-  aceptarHorario() {
+  aceptarMateria() {
     this.horario.push(this.dias);
-    console.log(this.horario);
+    this.afd.database
+    .ref('/profesores/' + this.profesor.uid + '/horarios/' + this.codigoMateria)
+    .update(this.dias)
+    .then(() => {
+      this.getMateria = false;
+      this.agregar = false;
+      this.materiasInscritas ++;
+    })
+    .catch((error) => console.error(error));
+  }
+
+  aceptarHorario() {
+    this.disponible = false;
+    this.afd.database
+    .ref('/profesores/' + this.profesor.uid )
+    .update({
+      disponible: false
+    })
+    .then(() => console.log('Horario generado con éxito'))
+    .catch((error) => console.error(error));
   }
 
 }

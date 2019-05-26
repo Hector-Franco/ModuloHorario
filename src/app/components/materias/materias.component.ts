@@ -24,32 +24,28 @@ export class MateriasComponent implements OnInit {
   }
 
   verMateria(carrera: string, materia: string) {
-    console.log(carrera);
-    console.log(materia);
     if (materia === undefined) {
-      console.log('Entró a IF');
       this.verCarrera(carrera);
     } else {
-      console.log('Entro a ELSE');
-      this.verMateriaCarreraID(carrera, materia);
+      this.verMateriaCarreraID(carrera, materia.toUpperCase());
     }
   }
 
   verCarrera(carrera: string) {
     this.materiasService.getMateriasPrograma(carrera)
-    .then((materia: Materia[]) => {
-      if (materia.length === 0) {
-        this.fallo = true;
-        this.obtener = false;
-        console.log('Ingrese una Carrera valida por favor');
-      } else {
-        this.obtenerMaterias = false;
-        this.obtener = true;
-        this.fallo = false;
-        this.materias = materia;
-      }
-    })
-    .catch(error => console.log(error));
+      .then((materia: Materia[]) => {
+        if (materia.length === 0) {
+          this.fallo = true;
+          this.obtener = false;
+          console.log('Ingrese una Carrera valida por favor');
+        } else {
+          this.obtenerMaterias = false;
+          this.obtener = true;
+          this.fallo = false;
+          this.materias = materia;
+        }
+      })
+      .catch(error => console.log(error));
   }
 
   verMateriaCarreraID(carrera: string, materiaID: string) {

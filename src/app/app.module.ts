@@ -26,6 +26,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MateriasComponent } from './components/materias/materias.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { MateriaComponent } from './components/materia/materia.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MateriaComponent } from './components/materia/materia.component';
     MenuComponent,
     MateriasComponent,
     RegistroComponent,
-    MateriaComponent
+    MateriaComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

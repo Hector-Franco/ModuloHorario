@@ -5,3 +5,7 @@
 button {
     margin: 5px 10px;
 }
+
+.texto {
+    text-transform: uppercase;
+}

@@ -17,6 +17,9 @@ export class RegistroComponent implements OnInit {
   ID: string;
   nombre: string;
   apellido: string;
+  mostrarNombre: string;
+  exito: boolean;
+  error: boolean;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -27,11 +30,10 @@ export class RegistroComponent implements OnInit {
       if (auth) {
         this.ID = auth.uid;
         this.email = auth.email;
+        this.mostrarNombre = auth.displayName;
       }
     });
   }
-
-
 
   // !Ingresar al Modulo
   actualizarPerfil() {
@@ -43,16 +45,18 @@ export class RegistroComponent implements OnInit {
       email: usuario.email,
       ID: usuario.uid
     })
-      .then((data) => console.log(data)
-      )
-      .catch((error) => console.log(error));
+      .then((data) => {
+        this.exito = true;
+      })
+      .catch((error) => {
+        this.error = true;
+      });
 
     usuario.updateProfile({
       displayName: `${this.nombre} ${this.apellido}`
     })
       .then(() => console.log('Nombre Actualizado'))
       .catch((error) => console.log(error));
-
 
   }
 

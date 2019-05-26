@@ -3,7 +3,11 @@
 
     <!-- ? Icono -->
     <div class="fadeIn first">
-      <h1>Actualizar Perfil Docente</h1>
+      <h1>Actualizar Perfil</h1>
+    </div>
+
+    <div class="fadeIn first">
+      <h2>{{mostrarNombre}}</h2>
     </div>
 
     <!-- ? Ingresar -->
@@ -20,8 +24,20 @@
       <input type="text" id="email" class="fadeIn second" name="email" placeholder="E-mail"
         [(ngModel)]="email" disabled>
 
-      <input type="submit" class="fadeIn fourth" value="Actualizar">      
+      <input type="submit" class="fadeIn fourth btn-danger" value="Actualizar">      
     </form>
 
   </div>
 </div>
+
+<ng-container *ngIf="exito">
+  <div class="alert alert-success" role="alert">
+    Datos actualizados exitosamente
+  </div>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <div class="alert alert-danger" role="alert">
+    Ha ocurrido un error, intentalo más tarde
+  </div>
+</ng-container>

@@ -14,13 +14,14 @@
         <div class="row">
           <div class="col">
             <label for="carrera">Ingrese la Carrera o Área</label>
-            <input id="carrera" name="programa" [(ngModel)]="programa" type="text" class="form-control" placeholder="Carrera/Área" #carrera required>
+            <input id="carrera" name="programa" [(ngModel)]="programa" type="text" class="form-control"
+              placeholder="Carrera/Área" #carrera required>
           </div>
         </div>
         <button class="btn btn-primary" (click)="verMateria(carrera.value, undefined)">Buscar</button>
       </form>
-      <div *ngIf="fallo">
-        <p style="color:red">Verifica los datos, ingresa una Materia valida</p>
+      <div class="alert alert-danger" role="alert" *ngIf="fallo">
+        <p>Verifica los datos, ingresa una Materia valida</p>
       </div>
     </ng-template>
 
@@ -28,16 +29,18 @@
       <form>
         <div class="row">
           <div class="col">
-            <input type="text" name="programa" [(ngModel)]="programa" class="form-control" placeholder="Carrera/Área" #carrera required>
+            <input type="text" name="programa" [(ngModel)]="programa" class="form-control" placeholder="Carrera/Área"
+              #carrera required>
           </div>
           <div class="col">
-            <input type="text" name="materiaID" [(ngModel)]="materiaID" class="form-control upper" placeholder="Materia" #materia required>
+            <input type="text" name="materiaID" [(ngModel)]="materiaID" class="form-control upper" placeholder="Materia"
+              #materia required>
           </div>
         </div>
         <button class="btn btn-primary" (click)="verMateria(carrera.value, materia.value)">Buscar</button>
       </form>
-      <div *ngIf="fallo">
-        <p style="color:red">Verifica los datos, ingresa una Carrera o Materia valida</p>
+      <div class="alert alert-danger" role="alert" *ngIf="fallo">
+        <p>Verifica los datos, ingresa una Carrera o Materia valida</p>
       </div>
     </ng-template>
 

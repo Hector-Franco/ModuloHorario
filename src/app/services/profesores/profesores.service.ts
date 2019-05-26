@@ -15,12 +15,19 @@ export class ProfesoresService {
     return new Promise((resolve, reject) => {
       this.afd.list(`/profesores/${profesorId}`)
         .valueChanges()
-        .subscribe(
-          (profesor) => {
-            console.log(profesor);
-            resolve(profesor);
-          }
-        );
+        .subscribe((profesor) => resolve(profesor));
+    });
+  }
+
+
+  public getHorario(id: string) {
+    return new Promise((resolve, reject) => {
+      this.afd.list(`/profesores/${id}/horarios`)
+      .valueChanges()
+      .subscribe((horarios) => {
+        console.log(JSON.stringify(horarios));
+        resolve(horarios);
+      } );
     });
   }
 
